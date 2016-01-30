@@ -1,0 +1,51 @@
+﻿@model Notes.Web.ViewModels.RegisterViewModel
+@{
+    ViewBag.Title = "Register";
+}
+
+<div class="row">
+    <h3 class="col-lg-11 col-md-11 col-md-offset-1">REGISTER</h3>
+</div>
+<hr />
+
+@using (Html.BeginForm("Register", "Account", FormMethod.Post, new { name = "register", @class = "form-horizontal" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Email, new { @class = "col-lg-1 col-md-1 col-sm-1 control-label" })
+        <div class="col-lg-8 col-md-8 col-sm-6">
+            @Html.TextBoxFor(model => model.Email, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.Email, "", new { @class = "control-label text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Password, new { @class = "col-lg-1 col-md-1 col-sm-1 control-label" })
+        <div class="col-lg-8 col-md-8 col-sm-6">
+            @Html.PasswordFor(model => model.Password, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.Password, "", new { @class = "control-label text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.ConfirmPassword, new { @class = "col-lg-1 col-md-1 col-sm-1 control-label" })
+        <div class="col-lg-8 col-md-8 col-sm-6">
+            @Html.PasswordFor(model => model.ConfirmPassword, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "control-label text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-lg-8 col-md-8 col-sm-6 col-lg-offset-1 col-md-offset-1 col-sm-offset-1">
+            <bytton type="submit" class="btn btn-block btn-default" onclick="document.forms['register'].submit()">
+                <span class="glyphicon glyphicon-user"></span> REGISTER
+            </bytton>
+        </div>
+    </div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

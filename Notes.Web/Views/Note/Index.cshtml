@@ -1,0 +1,85 @@
+﻿@model IEnumerable<Notes.Web.ViewModels.NoteViewModel>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<hr />
+
+@using (Html.BeginForm("Index", "Note", FormMethod.Get, new { name = "search", @class = "form-inline text-right" }))
+{
+    @Html.TextBox("noteName", "", new { @class = "form-control", placeholder = "Note name" })
+    <button type="submit" class="btn btn-default" onclick="document.forms['search'].submit()">
+        <span class="glyphicon glyphicon-search"></span>
+    </button>
+}
+
+<div class="table-responsive">
+    <table id="note-table" class="tablesorter table table-condensed table-striped table-hover table-bordered">
+        <caption>
+            <h2>NOTES</h2>
+        </caption>
+
+        <thead>
+            <tr>
+                <th style="width:20%">Name</th>
+                <th style="width:80%">Content</th>
+                <th style="min-width:95px;">Date</th>
+                <th style="min-width:265px">Actions</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(model => item.Name)
+                    </td>
+                    <td class="text-column">
+                        @Html.DisplayFor(model => item.Text)
+                    </td>
+                    <td class="text-center">
+                        @Html.DisplayFor(model => item.Date)
+                    </td>
+                    <td>
+                        <div class="btn-group btn-group-justified btn-group-sm">
+                            <a href=@Url.Action("Edit", new {id = item.Id}) class="btn btn-default">
+                                Edit <span class="glyphicon glyphicon-edit"></span>
+                            </a>
+                            <a href=@Url.Action("Details", new {id = item.Id}) class="btn btn-default">
+                                Details <span class="glyphicon glyphicon-info-sign"></span>
+                            </a>
+                            <a href=@Url.Action("Delete", new {id=item.Id}) class="btn btn-default">
+                                Remove <span class="glyphicon glyphicon-remove"></span>
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+
+        <tfoot>
+            <tr>
+                <td colspan="3"></td>
+                <td>
+                    <a href=@Url.Action("Create") class="btn btn-sm btn-block btn-default ">
+                        Add note <span class="glyphicon glyphicon-plus"></span>
+                    </a>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/notetablesorter")
+}
+
+
+
+
+
+
+
+

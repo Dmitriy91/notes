@@ -1,0 +1,45 @@
+﻿@model Notes.Web.ViewModels.NoteViewModel
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<div class="row">
+    <h3 class="col-lg-11 col-md-11 col-md-offset-1">DETAILS</h3>
+</div>
+<hr />
+<div class="form-horizontal">
+    <div class="form-group">
+        <lable class="col-lg-1 col-md-1 col-sm-1 control-label">Name</lable>
+        <div class="form-control-static col-lg-8 col-md-8 col-sm-6">
+            @Html.DisplayFor(model => model.Name)
+        </div>
+    </div>
+
+    <div class="form-group">
+        <lable class="col-lg-1 col-md-1 col-sm-1 control-label">Text</lable>
+        <div class="text form-control-static col-lg-8 col-md-8 col-sm-6">
+            @Html.DisplayFor(model => model.Text)
+        </div>
+    </div>
+
+    <div class="form-group">
+        <lable class="col-lg-1 col-md-1 col-sm-1 control-label">Date</lable>
+        <div class="form-control-static col-lg-8 col-md-8 col-sm-6">
+            @Html.DisplayFor(model => model.Date)
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-lg-8 col-md-8 col-sm-6 col-lg-offset-1 col-md-offset-1 col-sm-offset-1">
+            <div class="btn-group btn-group-justified">
+                <a href=@Url.Action("Edit", new { id = Model.Id }) class="btn btn-default">
+                    <span class="glyphicon glyphicon-edit"></span> EDIT
+                </a>
+                <a href=@Url.Action("Index") class="btn btn-default">
+                    <span class="glyphicon glyphicon-circle-arrow-left"></span> BACK
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

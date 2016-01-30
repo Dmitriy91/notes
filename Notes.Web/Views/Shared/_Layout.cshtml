@@ -1,0 +1,58 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Notes</title>
+    @Scripts.Render("~/bundles/modernizr")
+    @{
+        String theme = "~/Content/css/bootstrap.css";
+
+        if (Request.Cookies.AllKeys.Contains("theme"))
+        {
+            theme = "~" + Request.Cookies["theme"].Value;
+        }
+    }
+    @Styles.Render(theme, "~/Content/css")
+</head>
+<body>
+    <nav class="navbar navbar-inverse navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href=@Url.Action("Index", "Note")>Notes</a>
+            </div>
+            <div>
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Themes<span class="caret"></span></a>
+                        <ul id="theme-menu" class="dropdown-menu" style="color: black;cursor:pointer">
+                            <li class="text-center">Amelia</li>
+                            <li class="text-center">Readable</li>
+                            <li class="text-center">Sham rock</li>
+                            <li class="text-center">Space lab</li>
+                            <li class="text-center">Super hero</li>
+                            <li class="text-center">Darkly</li>
+                            <li class="text-center">Cosmo</li>
+                            <li class="text-center">Cupid</li>
+                        </ul>
+                    </li>
+                </ul>
+                @Html.Partial("_Login")
+            </div>
+        </div>
+    </nav>
+    <div class="container">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - Notes</p>
+        </footer>
+    </div>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>
+

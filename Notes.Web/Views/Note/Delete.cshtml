@@ -1,0 +1,51 @@
+﻿@model Notes.Web.ViewModels.NoteViewModel
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<div class="row">
+    <h3 class="col-lg-11 col-md-11 col-md-offset-1">
+        DELETE <br />
+        Are you sure you want to delete this?
+    </h3>
+</div>
+<hr />
+
+@using (Html.BeginForm("Delete", "Note", new { id = @Model.Id }, FormMethod.Post, new { @class = "form-horizontal", name = "delete" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="form-group">
+        <lable class="col-lg-1 col-md-1 col-sm-1 control-label">Name</lable>
+        <div class="form-control-static col-lg-8 col-md-8 col-sm-6">
+            @Html.DisplayFor(model => model.Name)
+        </div>
+    </div>
+
+    <div class="form-group">
+        <lable class="col-lg-1 col-md-1 col-sm-1 control-label">Text</lable>
+        <div class="text form-control-static col-lg-8 col-md-8 col-sm-6">
+            @Html.DisplayFor(model => model.Text)
+        </div>
+    </div>
+
+    <div class="form-group">
+        <lable class="col-lg-1 col-md-1 col-sm-1 control-label">Date</lable>
+        <div class="form-control-static col-lg-8 col-md-8 col-sm-6">
+            @Html.DisplayFor(model => model.Date)
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-lg-8 col-md-8 col-sm-6 col-lg-offset-1 col-md-offset-1 col-sm-offset-1">
+            <div class="btn-group btn-group-justified">
+                <bytton type="submit" class="btn btn-default" onclick="document.forms['delete'].submit()">
+                    <span class="glyphicon glyphicon-trash"></span> DELETE
+                </bytton>
+                <a href=@Url.Action("Index") class="btn btn-default">
+                    <span class="glyphicon glyphicon-circle-arrow-left"></span> BACK
+                </a>
+            </div>
+        </div>
+    </div>
+}
