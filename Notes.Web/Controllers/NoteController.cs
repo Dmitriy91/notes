@@ -13,7 +13,6 @@ using System.Web.Mvc;
 namespace Notes.Web.Controllers
 {
     [Authorize]
-    [HandleError]
     public class NoteController : Controller
     {
         #region Fields
@@ -141,11 +140,6 @@ namespace Notes.Web.Controllers
             await _noteService.CommitAsync();
 
             return RedirectToAction("Index");
-        }
-
-        public ActionResult Error()
-        {
-            return View();
         }
         #endregion
 
