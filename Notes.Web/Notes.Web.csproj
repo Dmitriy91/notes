@@ -242,6 +242,7 @@
     <Content Include="Scripts\bootstrap-theme-selector.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\form-submission.js" />
     <Content Include="Scripts\future-date-attribute.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
