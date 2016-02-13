@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Notes.Web.Infrastructure.ValidationAttributes;
+using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace Notes.Web.ViewModels
@@ -10,8 +11,8 @@ namespace Notes.Web.ViewModels
         public string Name { get; set; }
         [Required, StringLength(264), UIHint("MultilineText")]
         public string Text { get; set; }
+        [FutureDate, UIHint("Date")]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
-        [Required, DataType(DataType.Date)]
         public DateTime Date { get; set; }
     }
 }

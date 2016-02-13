@@ -191,6 +191,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Infrastructure\ValidationAttributes\FutureDateAttribute.cs" />
     <Compile Include="MappingProfiles\DomainToViewModelProfile.cs" />
     <Compile Include="MappingProfiles\ViewModelToDomainProfile.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -241,6 +242,7 @@
     <Content Include="Scripts\bootstrap-theme-selector.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\future-date-attribute.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
