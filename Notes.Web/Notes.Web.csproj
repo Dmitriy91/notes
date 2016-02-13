@@ -205,6 +205,8 @@
     <Content Include="App_Data\NotesDb_log.ldf">
       <DependentUpon>NotesDb.mdf</DependentUpon>
     </Content>
+    <Content Include="Content\css\bootstrapDatepicker\bootstrap-datepicker3.standalone.css" />
+    <Content Include="Content\css\bootstrapDatepicker\bootstrap-datepicker3.standalone.min.css" />
     <Content Include="Content\css\bootstrap-theme.css" />
     <Content Include="Content\css\bootstrap-theme.min.css" />
     <Content Include="Content\css\bootstrap.amelia.css" />
@@ -239,6 +241,8 @@
     <Content Include="Content\css\bootstrap-theme.css.map" />
     <Content Include="Content\css\bootstrap.css.map" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\bootstrap-datepicker.js" />
+    <Content Include="Scripts\bootstrap-datepicker.min.js" />
     <Content Include="Scripts\bootstrap-theme-selector.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -253,6 +257,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\note-date-picker-config.js" />
     <Content Include="Scripts\note-table-sorter-config.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Content\css\tablesorter\tablesorter.css" />

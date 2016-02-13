@@ -10,11 +10,13 @@ namespace Notes.Web
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                         "~/Scripts/jquery-{version}.js"));
 
-            bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
+            bundles.Add(new ScriptBundle("~/bundles/note-form").Include(
                         "~/Scripts/jquery.unobtrusive*",
                         "~/Scripts/jquery.validate*",
                         "~/Scripts/future-date-attribute.js",
-                        "~/Scripts/form-submission.js"));
+                        "~/Scripts/form-submission.js",
+                        "~/Scripts/bootstrap-datepicker.js",
+                        "~/Scripts/note-date-picker-config.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
                         "~/Scripts/modernizr-*"));
@@ -27,9 +29,14 @@ namespace Notes.Web
                         "~/Scripts/jquery.tablesorter.min.js",
                         "~/Scripts/note-table-sorter-config.js"));
 
-            bundles.Add(new StyleBundle("~/Content/css").Include(
-                        "~/Content/css/site.css",
+            bundles.Add(new StyleBundle("~/Content/css/site").Include(
+                        "~/Content/css/site.css"));
+
+            bundles.Add(new StyleBundle("~/Content/css/tablesorter").Include(
                         "~/Content/css/tablesorter/tablesorter.css"));
+
+            bundles.Add(new StyleBundle("~/Content/css/datepicker").Include(
+                        "~/Content/css/bootstrapDatepicker/bootstrap-datepicker3.standalone.css"));
         }
     }
 }

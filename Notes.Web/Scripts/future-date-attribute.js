@@ -13,8 +13,8 @@ $.validator.addMethod("futuredate", function (value, element) {
         if (month < currentDate.getMonth() + 1)
             return false;
 
-        if (day < currentDate.getDate())
-            return false;
+        if (month == currentDate.getMonth() + 1 && day < currentDate.getDate())
+            return false
     }
 
     return true;

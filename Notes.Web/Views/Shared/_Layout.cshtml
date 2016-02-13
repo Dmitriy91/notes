@@ -13,7 +13,8 @@
             theme = "~" + Request.Cookies["theme"].Value;
         }
     }
-    @Styles.Render(theme, "~/Content/css")
+    @Styles.Render(theme, "~/Content/css/site")
+    @RenderSection("styles", required: false)
 </head>
 <body>
     <nav class="navbar navbar-inverse navbar-default">
