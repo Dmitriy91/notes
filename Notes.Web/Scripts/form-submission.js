@@ -1,5 +1,9 @@
 ﻿function submitForm(formName) {
-    if (document.querySelector("input[class~='input-validation-error']") == null) {
+    var form = $(document.forms[formName]);
+
+    form.validate();
+
+    if (form.valid()) {
         document.forms[formName].submit();
     }
 }
