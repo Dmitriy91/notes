@@ -2,7 +2,7 @@
     padding-bottom: 20px;
 }
 
-/* styles for validation helpers */
+/* Styles for validation helpers */
 .field-validation-error {
     color: #b94a48;
 }
@@ -37,8 +37,7 @@ input[type="checkbox"].input-validation-error {
 }
 
 /* Override the default bootstrap behavior where horizontal description lists 
-   will truncate terms that are too long to fit in the left column 
-*/
+   will truncate terms that are too long to fit in the left column */
 .dl-horizontal dt {
     white-space: normal;
 }
@@ -64,4 +63,11 @@ li.selected-theme {
 .text {
     overflow: hidden;
     overflow-wrap:break-word;
+}
+
+/* Theme menu */
+#theme-menu {
+    color:black;
+    cursor:pointer;
+    list-style-type:none;
 }
