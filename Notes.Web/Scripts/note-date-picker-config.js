@@ -3,6 +3,10 @@
         format: "yyyy-mm-dd",
         todayBtn: true,
         todayHighlight: true,
-        daysOfWeekHighlighted: "0,6"
+        daysOfWeekHighlighted: "0,6",
+        calendarWeeks: true,
+        weekStart: 1
     });
 });
+
+
