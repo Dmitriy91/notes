@@ -4,51 +4,57 @@
     ViewBag.Title = "Create";
 }
 
-<div class="row">
-    <h3 class="col-lg-11 col-md-11 col-md-offset-1">CREATE NOTE</h3>
-</div>
 <hr />
-@using (Html.BeginForm("Create", "Note", FormMethod.Post, new { @class = "form-horizontal", name = "note" }))
-{
-    @Html.AntiForgeryToken()
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-    <div class="form-group">
-        @Html.LabelFor(model => model.Name, new { @class = "col-lg-1 col-md-1 col-sm-1 control-label" })
-        <div class="col-lg-8 col-md-8 col-sm-6">
-            @Html.TextBoxFor(model => model.Name, new { @class = "form-control" })
-            @Html.ValidationMessageFor(model => model.Name, "", new { @class = "control-label text-danger" })
-        </div>
-    </div>
+<div class="row">
+    <div class="col-lg-8 col-md-10 col-sm-10 col-lg-offset-2 col-md-offset-1 col-sm-offset-1">
+        <div class="panel panel-default">
+            <div class="panel-heading">CREATE NOTE</div>
+            <div class="panel-body">
+                @using (Html.BeginForm("Create", "Note", FormMethod.Post, new { @class = "form-horizontal", name = "note", role = "form" }))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Name, "NAME", new { @class = "control-label col-lg-1 col-md-1 col-sm-1" })
+                        <div class="col-lg-11 col-md-11 col-sm-11">
+                            @Html.TextBoxFor(model => model.Name, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.Text, new { @class = "col-lg-1 col-md-1 col-sm-1 control-label" })
-        <div class="col-lg-8 col-md-8 col-sm-6">
-            @Html.TextAreaFor(model => model.Text, new { @class = "form-control", rows = 3 })
-            @Html.ValidationMessageFor(model => model.Text, "", new { @class = "control-label text-danger" })
-        </div>
-    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Text, "TEXT", new { @class = "control-label col-lg-1 col-md-1 col-sm-1" })
+                        <div class="col-lg-11 col-md-11 col-sm-11">
+                            @Html.TextAreaFor(model => model.Text, new { @class = "form-control", rows = 3 })
+                            @Html.ValidationMessageFor(model => model.Text, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.Date, new { @class = "col-lg-1 col-md-1 col-sm-1 control-label" })
-        <div class="col-lg-8 col-md-8 col-sm-6">
-            @Html.TextBoxFor(model => model.Date, "{0:yyyy-MM-dd}", new { @class = "form-control datepicker" })
-            @Html.ValidationMessageFor(model => model.Date, "", new { @class = "control-label text-danger" })
-        </div>
-    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Date, "DATE", new { @class = "control-label col-lg-1 col-md-1 col-sm-1" })
+                        <div class="col-lg-11 col-md-11 col-sm-11">
+                            @Html.TextBoxFor(model => model.Date, "{0:yyyy-MM-dd}", new { @class = "form-control datepicker" })
+                            @Html.ValidationMessageFor(model => model.Date, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
 
-    <div class="form-group">
-        <div class="col-lg-8 col-md-8 col-sm-6 col-lg-offset-1 col-md-offset-1 col-sm-offset-1">
-            <div class="btn-group btn-group-justified">
-                <bytton type="submit" class="btn btn-default" onclick="submitForm('note')">
-                    <span class="glyphicon glyphicon-plus"></span> CREATE
-                </bytton>
-                <a href=@Url.Action("Index") class="btn btn-default">
-                    <span class="glyphicon glyphicon-circle-arrow-left"></span> BACK
-                </a>
+                    <div class="form-group">
+                        <div class="col-lg-11 col-md-11 col-sm-11 col-lg-offset-1 col-md-offset-1 col-sm-offset-1">
+                            <div class="btn-group btn-group-justified">
+                                <bytton type="submit" class="btn btn-default" onclick="submitForm('note')">
+                                    <span class="glyphicon glyphicon-plus"></span> CREATE
+                                </bytton>
+                                <a href=@Url.Action("Index") class="btn btn-default">
+                                    <span class="glyphicon glyphicon-circle-arrow-left"></span> BACK
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                }
             </div>
         </div>
     </div>
-}
+</div>
 
 @section Styles {
     @Styles.Render("~/Content/css/datepicker")    
@@ -57,5 +63,3 @@
 @section Scripts {
     @Scripts.Render("~/bundles/note-form")
 }
-
-
