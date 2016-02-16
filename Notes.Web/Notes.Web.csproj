@@ -205,6 +205,14 @@
     <Content Include="App_Data\NotesDb_log.ldf">
       <DependentUpon>NotesDb.mdf</DependentUpon>
     </Content>
+    <Content Include="Content\css\bootstrap.flatly.css" />
+    <Content Include="Content\css\bootstrap.flatly.min.css" />
+    <Content Include="Content\css\bootstrap.lumen.css" />
+    <Content Include="Content\css\bootstrap.lumen.min.css" />
+    <Content Include="Content\css\bootstrap.yeti.css" />
+    <Content Include="Content\css\bootstrap.yeti.min.css" />
+    <Content Include="Content\css\bootstrap.cerulean.css" />
+    <Content Include="Content\css\bootstrap.cerulean.min.css" />
     <Content Include="Content\css\bootstrapDatepicker\bootstrap-datepicker3.standalone.css" />
     <Content Include="Content\css\bootstrapDatepicker\bootstrap-datepicker3.standalone.min.css" />
     <Content Include="Content\css\bootstrap-theme.css" />

@@ -68,6 +68,7 @@ li.selected-theme {
 /* Theme menu */
 #theme-menu {
     color:black;
+    background-color:ghostwhite;
     cursor:pointer;
     list-style-type:none;
 }
