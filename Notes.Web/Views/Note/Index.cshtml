@@ -8,7 +8,12 @@
 
 @using (Html.BeginForm("Index", "Note", FormMethod.Get, new { name = "search", @class = "form-inline text-right" }))
 {
-    @Html.TextBox("noteName", "", new { @class = "form-control", placeholder = "Note name" })
+    @Html.TextBox("noteName", "", new {
+        @class = "form-control", 
+        placeholder = "Note name",
+        autofocus = "autofocus",
+        onfocus = "this.value = this.value;", @*Move the caret to the end*@
+        style = "display:inline-block;width:210px" })
     <button type="submit" class="btn btn-default" onclick="document.forms['search'].submit()">
         <span class="glyphicon glyphicon-search"></span>
     </button>
@@ -63,7 +68,7 @@
             <tr>
                 <td colspan="3"></td>
                 <td>
-                    <a href=@Url.Action("Create") class="btn btn-sm btn-block btn-default ">
+                    <a href=@Url.Action("Create") class="btn btn-sm btn-block btn-default">
                         Add note <span class="glyphicon glyphicon-plus"></span>
                     </a>
                 </td>
@@ -79,11 +84,3 @@
 @section Scripts {
     @Scripts.Render("~/bundles/notetablesorter")
 }
-
-
-
-
-
-
-
-
