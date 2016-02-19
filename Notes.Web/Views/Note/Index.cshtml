@@ -6,7 +6,7 @@
 
 <hr />
 
-@using (Html.BeginForm("Index", "Note", FormMethod.Get, new { name = "search", @class = "form-inline text-right" }))
+@using (Html.BeginForm("Index", "Note", FormMethod.Get, new { name = "search", @class = "form-inline pull-right" }))
 {
     @Html.TextBox("noteName", "", new {
         @class = "form-control", 
