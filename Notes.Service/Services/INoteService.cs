@@ -1,4 +1,5 @@
 ﻿using Notes.Model;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -9,7 +10,7 @@ namespace Notes.Service
         string UserId { get; set; }
         Note GetNoteById(int noteId);
         IEnumerable<Note> GetAllNotes();
-        IEnumerable<Note> GetNotesByName(string name);
+        IEnumerable<Note> GetFilteredNotes(string name, string text, DateTime? date, int page, int notesPerPage, out int notesFound);
         void RemoveNoteById(int noteId);
         void UpdateNote(Note note);
         void AddNote(Note note);

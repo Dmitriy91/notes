@@ -3,7 +3,7 @@ using Notes.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 namespace Notes.Service
@@ -29,14 +29,56 @@ namespace Notes.Service
             return _noteRepository.GetMany(n => n.UserId == UserId).ToList();
         }
 
-        public IEnumerable<Note> GetNotesByName(string name)
+        public IEnumerable<Note> GetFilteredNotes(string name, string text, DateTime? date, int page, int notesPerPage, out int notesFound)
         {
-            return _noteRepository.GetMany(n => n.Name.Contains(name) && n.UserId == UserId).ToList();
+            IQueryable<Note> notes = null;
+            Expression<Func<Note, bool>> condition = null;
+
+            if (String.IsNullOrWhiteSpace(name) && String.IsNullOrWhiteSpace(text) && date == null)
+            {
+                condition = n => n.UserId == UserId;
+            }
+            else if (!String.IsNullOrWhiteSpace(name) && String.IsNullOrWhiteSpace(text) && date == null)
+            {
+                condition = n => n.UserId == UserId && n.Name.Contains(name);
+            }
+            else if (!String.IsNullOrWhiteSpace(name) && !String.IsNullOrWhiteSpace(text) && date == null)
+            {
+                condition = n => n.UserId == UserId && n.Name.Contains(name) && n.Text.Contains(text);
+            }
+            else if (!String.IsNullOrWhiteSpace(name) && !String.IsNullOrWhiteSpace(text) && date != null)
+            {
+                condition = n => n.UserId == UserId && n.Name.Contains(name) && n.Text.Contains(text) && n.Date == date.Value;
+            }
+            else if (String.IsNullOrWhiteSpace(name) && !String.IsNullOrWhiteSpace(text) && date != null)
+            {
+                condition = n => n.UserId == UserId && n.Text.Contains(text) && n.Date == date.Value;
+            }
+            else if (String.IsNullOrWhiteSpace(name) && String.IsNullOrWhiteSpace(text) && date != null)
+            {
+                condition = n => n.UserId == UserId && n.Date == date.Value;
+            }
+            else if (!String.IsNullOrWhiteSpace(name) && String.IsNullOrWhiteSpace(text) && date == null)
+            {
+                condition = n => n.UserId == UserId && n.Name.Contains(name);
+            }
+            else
+            {
+                condition = n => n.UserId == UserId && n.Text.Contains(text);
+            }
+
+            notes = _noteRepository.GetMany(condition);
+            notesFound = notes.Select(n => n.Id).Count();// "Select" is used to reduce time consumed.
+
+            return notes.OrderBy(note => note.Id).
+                Skip((page - 1) * notesPerPage).
+                Take(notesPerPage).
+                ToList();
         }
 
         public void RemoveNoteById(int noteId)
         {
-            bool noteExists = _noteRepository.Exists(n => n.UserId == UserId && n.Id == noteId);
+            bool noteExists = _noteRepository.Exists(n => n.Id == noteId && n.UserId == UserId);
 
             if (noteExists)
                 _noteRepository.Delete(new Note { Id = noteId });
@@ -44,7 +86,7 @@ namespace Notes.Service
 
         public void UpdateNote(Note note)
         {
-            bool noteExists = _noteRepository.Exists(n => n.UserId == UserId && n.Id == note.Id);
+            bool noteExists = _noteRepository.Exists(n => n.Id == note.Id && n.UserId == UserId);
 
             if (noteExists)
             {

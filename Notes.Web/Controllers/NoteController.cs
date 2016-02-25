@@ -2,9 +2,11 @@
 using Microsoft.AspNet.Identity;
 using Notes.Model;
 using Notes.Service;
+using Notes.Web.Infrastructure.Models;
 using Notes.Web.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using System.Web;
@@ -27,26 +29,26 @@ namespace Notes.Web.Controllers
         #endregion
 
         #region Actions
-        public async Task<ActionResult> Index(string noteName)
+        public async Task<ActionResult> Index(string noteName, string noteText, DateTime? date, int page = 1, int notesPerPage = 12)
         {
-            IEnumerable<NoteViewModel> noteViewModels = null;
-            IEnumerable<Note> notes = null;
-
-            await Task.Run(() => 
+            int notesFound = 0;
+            IEnumerable<Note> notes = await Task<IEnumerable<Note>>.Run(() => 
             {
-                if (String.IsNullOrWhiteSpace(noteName))
-                {
-                    notes = _noteService.GetAllNotes();
-                }
-                else 
-                {
-                    notes = _noteService.GetNotesByName(noteName);
-                }
+                return _noteService.GetFilteredNotes(noteName, noteText, date, page, notesPerPage, out notesFound);
             });
+            IEnumerable<NoteViewModel> noteViewModels = Mapper.Map<IEnumerable<Note>, IEnumerable<NoteViewModel>>(notes);
+            NoteListViewModel noteListViewModel = new NoteListViewModel
+            {
+                NoteViewModels = noteViewModels,
+                PagingInfo = new PagingInfo 
+                {
+                    CurrentPage = page,
+                    ItemsPerPage = notesPerPage,
+                    TotalItems = notesFound
+                }
+            };
 
-            noteViewModels = Mapper.Map<IEnumerable<Note>, IEnumerable<NoteViewModel>>(notes);
-
-            return View(noteViewModels);
+            return View(noteListViewModel);
         }
 
         public ActionResult Details(int? id) 
