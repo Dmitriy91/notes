@@ -23,6 +23,15 @@ namespace Notes.Web
                         "~/Scripts/bootstrap-datepicker.js",
                         "~/Scripts/note-date-picker-config.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/note-filtering-and-sorting").Include(
+                        "~/Scripts/jquery.unobtrusive*",
+                        "~/Scripts/jquery.validate*",
+                        "~/Scripts/bootstrap-datepicker.js",
+                        "~/Scripts/search-date-picker-config.js",
+                        "~/Scripts/note-filter.js",
+                        "~/Scripts/jquery.tablesorter.min.js",
+                        "~/Scripts/note-table-sorter-config.js"));
+
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
                         "~/Scripts/modernizr-*"));
 
@@ -30,15 +39,13 @@ namespace Notes.Web
                         "~/Scripts/bootstrap.js",
                         "~/Scripts/bootstrap-theme-selector.js"));
 
-            bundles.Add(new ScriptBundle("~/bundles/notetablesorter").Include(
-                        "~/Scripts/jquery.tablesorter.min.js",
-                        "~/Scripts/note-table-sorter-config.js"));
-
             bundles.Add(new StyleBundle("~/Content/css/site").Include(
                         "~/Content/css/site.css"));
 
-            bundles.Add(new StyleBundle("~/Content/css/tablesorter").Include(
-                        "~/Content/css/tablesorter/tablesorter.css"));
+            bundles.Add(new StyleBundle("~/Content/css/note-filtering-and-sorting").Include(
+                        "~/Content/css/bootstrapDatepicker/bootstrap-datepicker3.standalone.css",
+                        "~/Content/css/tablesorter/tablesorter.css",
+                        "~/Content/css/note-filter.css"));
 
             bundles.Add(new StyleBundle("~/Content/css/datepicker").Include(
                         "~/Content/css/bootstrapDatepicker/bootstrap-datepicker3.standalone.css"));

@@ -1,0 +1,33 @@
+﻿.filterable .filters input[disabled] {
+    color: whitesmoke;
+    background-color: transparent;
+    border: none;
+    cursor: auto;
+    box-shadow: none;
+    padding: 0;
+    height: auto;
+}
+
+.filterable .filters input {
+    text-align: center;
+}
+
+.filterable .filters > th {
+    text-align: left;
+}
+
+.filter-wrapper {
+    margin-right: 17px;
+}
+
+.table > thead > tr > th {
+    vertical-align: middle;
+}
+
+.note-panel {
+    overflow: hidden;
+}
+
+.filter-validation-summary {
+    padding-left: 10px;
+}

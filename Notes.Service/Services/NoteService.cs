@@ -58,7 +58,7 @@ namespace Notes.Service
             {
                 condition = n => n.UserId == UserId && n.Date == date.Value;
             }
-            else if (!String.IsNullOrWhiteSpace(name) && String.IsNullOrWhiteSpace(text) && date == null)
+            else if (!String.IsNullOrWhiteSpace(name) && String.IsNullOrWhiteSpace(text) && date != null)
             {
                 condition = n => n.UserId == UserId && n.Name.Contains(name);
             }

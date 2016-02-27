@@ -55,8 +55,10 @@ li.selected-theme {
 }
 
 .text-column {
-    max-width:590px;
+    max-width: 590px;
     overflow: hidden;
+    -ms-text-overflow: ellipsis;
+    -o-text-overflow: ellipsis;
     text-overflow: ellipsis;
 }
 

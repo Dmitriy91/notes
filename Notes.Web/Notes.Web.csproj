@@ -238,6 +238,7 @@
     <Content Include="Content\css\bootstrap.spacelab.min.css" />
     <Content Include="Content\css\bootstrap.superhero.css" />
     <Content Include="Content\css\bootstrap.superhero.min.css" />
+    <Content Include="Content\css\note-filter.css" />
     <Content Include="Content\css\tablesorter\asc.gif" />
     <Content Include="Content\css\tablesorter\bg.gif" />
     <Content Include="Content\css\tablesorter\desc.gif" />
@@ -269,7 +270,9 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\note-date-picker-config.js" />
+    <Content Include="Scripts\note-filter.js" />
     <Content Include="Scripts\note-table-sorter-config.js" />
+    <Content Include="Scripts\search-date-picker-config.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Content\css\tablesorter\tablesorter.css" />
     <Content Include="Web.config" />

@@ -9,5 +9,16 @@ namespace Notes.Web.ViewModels
     {
         public IEnumerable<NoteViewModel> NoteViewModels { get; set; }
         public PagingInfo PagingInfo { get; set; }
+        public NoteFilter NoteFilter { get; set; }
+    }
+
+    public class NoteFilter
+    {
+        [StringLength(32)]
+        public string Name { get; set; }
+        [StringLength(32)]
+        public string Text { get; set; }
+        [DataType(DataType.Date)]
+        public DateTime? Date { get; set; }
     }
 }

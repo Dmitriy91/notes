@@ -1,10 +1,13 @@
 ﻿$(function () {
     $(".datepicker").datepicker({
         format: "yyyy-mm-dd",
-        todayBtn: true,
-        todayHighlight: true,
+        weekStart: 1,
+        todayBtn: "linked",
+        clearBtn: true,
         daysOfWeekHighlighted: "0,6",
         calendarWeeks: true,
-        weekStart: 1
+        autoclose: true,
+        todayHighlight: true,
+        toggleActive: true
     });
 });

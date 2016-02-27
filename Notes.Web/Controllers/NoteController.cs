@@ -4,9 +4,7 @@ using Notes.Model;
 using Notes.Service;
 using Notes.Web.Infrastructure.Models;
 using Notes.Web.ViewModels;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using System.Web;
@@ -29,23 +27,31 @@ namespace Notes.Web.Controllers
         #endregion
 
         #region Actions
-        public async Task<ActionResult> Index(string noteName, string noteText, DateTime? date, int page = 1, int notesPerPage = 12)
+        public async Task<ActionResult> Index(NoteFilter noteFilter, int page = 1, int notesPerPage = 12)
         {
+            noteFilter = noteFilter ?? new NoteFilter();
             int notesFound = 0;
-            IEnumerable<Note> notes = await Task<IEnumerable<Note>>.Run(() => 
+            IEnumerable<Note> notes = null;
+
+            if (ModelState.IsValid)
             {
-                return _noteService.GetFilteredNotes(noteName, noteText, date, page, notesPerPage, out notesFound);
-            });
+                notes = await Task<IEnumerable<Note>>.Run(() =>
+                {
+                    return _noteService.GetFilteredNotes(noteFilter.Name, noteFilter.Text, noteFilter.Date, page, notesPerPage, out notesFound);
+                });
+            }
+
             IEnumerable<NoteViewModel> noteViewModels = Mapper.Map<IEnumerable<Note>, IEnumerable<NoteViewModel>>(notes);
             NoteListViewModel noteListViewModel = new NoteListViewModel
             {
                 NoteViewModels = noteViewModels,
-                PagingInfo = new PagingInfo 
+                PagingInfo = new PagingInfo
                 {
                     CurrentPage = page,
                     ItemsPerPage = notesPerPage,
                     TotalItems = notesFound
-                }
+                },
+                NoteFilter = noteFilter
             };
 
             return View(noteListViewModel);

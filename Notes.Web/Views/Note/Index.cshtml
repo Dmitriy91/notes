@@ -7,77 +7,119 @@
 }
 
 <hr />
+<div class="panel panel-primary note-panel">
+    <div class="panel-heading">
+        <h3 class="panel-title">NOTES</h3>
+    </div>
+    @using (Html.BeginForm("Index", "Note", FormMethod.Get, new { name = "search", @class = "form-horizontal" }))
+    {
+        <input type="submit" style="position:absolute;left:-9999px;width:0;height:0" tabindex="-1" />
+        @*The input below must not be hidden due to Chrome's caching of hidden inputs' values.*@
+        <input name="notesPerPage" type="text" value=@int.MaxValue style="display:none" tabindex="-1" />
+        <div class="filter-validation-summary">
+            @Html.ValidationMessageFor(m => m.NoteFilter.Name, "", new { @class = "text-danger" }, "p")
+            @Html.ValidationMessageFor(m => m.NoteFilter.Text, "", new { @class = "text-danger" }, "p")
+            @Html.ValidationMessageFor(m => m.NoteFilter.Date, "", new { @class = "text-danger" }, "p")
+        </div>
+        <div class="table-responsive">
+            <table id="note-table" class="tablesorter filterable table table-condensed table-striped table-hover table-bordered">
+                <thead>
+                    <tr class="filters bg-primary">
+                        <th style="width:20%;min-width:100px">
+                            <div class="filter-wrapper">
+                                @Html.TextBoxFor(m => m.NoteFilter.Name, new
+                                        {
+                                            @class = "form-control input-sm",
+                                            placeholder = "Name",
+                                            disabled = "disabled",
+                                            onclick = "this.focus()",
+                                            onfocus = "this.value = this.value;" @*Move the caret to the end*@
+                                        })
+                            </div>
+                        </th>
+                        <th style="width:80%;min-width:400px">
+                            <div class="filter-wrapper">
+                                @Html.TextBoxFor(m => m.NoteFilter.Text, new
+                                        {
+                                            @class = "form-control input-sm",
+                                            placeholder = "Content",
+                                            disabled = "disabled",
+                                            onclick = "this.focus()",
+                                            onfocus = "this.value = this.value;" @*Move the caret to the end*@
+                                        })
+                            </div>
+                        </th>
+                        <th style="min-width:148px;">
+                            <div class="filter-wrapper">
+                                @Html.TextBoxFor(m => m.NoteFilter.Date, "{0:yyyy-MM-dd}", new
+                                        {
+                                            @class = "datepicker form-control input-sm",
+                                            placeholder = "Date",
+                                            disabled = "disabled",
+                                            onclick = "this.focus()",
+                                            onchange = "this.focus()",
+                                            onfocus = "this.value = this.value;" @*Move the caret to the end*@
+                                        })
+                            </div>
+                        </th>
+                        <th style="min-width:265px">
+                            <div class="btn-group btn-group-sm btn-group-justified">
+                                <a class="btn btn-default btn-filter">
+                                    Search <span class="glyphicon glyphicon-search"></span>
+                                </a>
+                                <a href=@Url.Action("Create") class="btn btn-default">
+                                    Add note <span class="glyphicon glyphicon-plus"></span>
+                                </a>
+                            </div>
+                        </th>
+                    </tr>
+                </thead>
 
-@using (Html.BeginForm("Index", "Note", FormMethod.Get, new { name = "search", @class = "form-inline pull-right" }))
-{
-    @Html.TextBox("noteName", "", new {
-        @class = "form-control", 
-        placeholder = "Note name",
-        autofocus = "autofocus",
-        onfocus = "this.value = this.value;", @*Move the caret to the end*@
-        style = "display:inline-block;width:210px" })
-    <button type="submit" class="btn btn-default" onclick="document.forms['search'].submit()">
-        <span class="glyphicon glyphicon-search"></span>
-    </button>
-}
+                <tbody>
+                    @foreach (var item in Model.NoteViewModels)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(m => item.Name)
+                            </td>
+                            <td class="text-column">
+                                @Html.DisplayFor(m => item.Text)
+                            </td>
+                            <td class="text-center">
+                                @Html.DisplayFor(m => item.Date)
+                            </td>
+                            <td>
+                                <div class="btn-group btn-group-justified btn-group-sm">
+                                    <a href=@Url.Action("Edit", new { id = item.Id }) class="btn btn-default">
+                                        Edit <span class="glyphicon glyphicon-edit"></span>
+                                    </a>
+                                    <a href=@Url.Action("Details", new { id = item.Id }) class="btn btn-default">
+                                        Details <span class="glyphicon glyphicon-info-sign"></span>
+                                    </a>
+                                    <a href=@Url.Action("Delete", new { id = item.Id }) class="btn btn-default">
+                                        Remove <span class="glyphicon glyphicon-remove"></span>
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
 
-<div class="table-responsive">
-    <table id="note-table" class="tablesorter table table-condensed table-striped table-hover table-bordered">
-        <caption>
-            <h2>NOTES</h2>
-        </caption>
-
-        <thead>
-            <tr>
-                <th style="width:20%">Name</th>
-                <th style="width:80%">Content</th>
-                <th style="min-width:95px;">Date</th>
-                <th style="min-width:265px">Actions</th>
-            </tr>
-        </thead>
-
-        <tbody>
-            @foreach (var item in Model.NoteViewModels)
-            {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(model => item.Name)
-                    </td>
-                    <td class="text-column">
-                        @Html.DisplayFor(model => item.Text)
-                    </td>
-                    <td class="text-center">
-                        @Html.DisplayFor(model => item.Date)
-                    </td>
-                    <td>
-                        <div class="btn-group btn-group-justified btn-group-sm">
-                            <a href=@Url.Action("Edit", new {id = item.Id}) class="btn btn-default">
-                                Edit <span class="glyphicon glyphicon-edit"></span>
-                            </a>
-                            <a href=@Url.Action("Details", new {id = item.Id}) class="btn btn-default">
-                                Details <span class="glyphicon glyphicon-info-sign"></span>
-                            </a>
-                            <a href=@Url.Action("Delete", new {id = item.Id}) class="btn btn-default">
-                                Remove <span class="glyphicon glyphicon-remove"></span>
-                            </a>
-                        </div>
-                    </td>
-                </tr>
-            }
-        </tbody>
-
-        <tfoot>
-            <tr>
-                <td colspan="3"></td>
-                <td>
-                    <a href=@Url.Action("Create") class="btn btn-sm btn-block btn-default">
-                        Add note <span class="glyphicon glyphicon-plus"></span>
-                    </a>
-                </td>
-            </tr>
-        </tfoot>
-    </table>
+                <tfoot>
+                    <tr>
+                        <td colspan="4" class="text-center">
+                            @if (Model.NoteViewModels.Count() == 0)
+                            {
+                                @("No result found")
+                            }
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    }
 </div>
+
 <div class="row">
     <div class="text-center">
         @Html.Pagination(Model.PagingInfo, (p, npp) => Url.Action("Index", new { page = p, notesPerPage = npp }))
@@ -85,9 +127,9 @@
 </div>
 
 @section Styles {
-    @Styles.Render("~/Content/css/tablesorter")
+    @Styles.Render("~/Content/css/note-filtering-and-sorting")
 }
 
 @section Scripts {
-    @Scripts.Render("~/bundles/notetablesorter")
+    @Scripts.Render("~/bundles/note-filtering-and-sorting")
 }
