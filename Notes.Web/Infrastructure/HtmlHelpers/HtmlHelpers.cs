@@ -1,10 +1,11 @@
 ﻿using Notes.Web.Infrastructure.Models;
 using System;
+using System.Collections.Generic;
 using System.Web.Mvc;
 
 namespace Notes.Web.Infrastructure.HtmlHelpers
 {
-    public static class PaginationHelpers
+    public static class HtmlHelpers
     {
         public static MvcHtmlString Pagination(this HtmlHelper html, PagingInfo pagingInfo, Func<int, int, string> pageUrl)
         {
@@ -55,6 +56,24 @@ namespace Notes.Web.Infrastructure.HtmlHelpers
             }
 
             return MvcHtmlString.Create(pagingUl.ToString() + pagingSettingsUl.ToString());
+        }
+
+        public static MvcHtmlString StatusBar(this HtmlHelper html, string statusMessage) 
+        {
+            if (statusMessage == null)
+                return MvcHtmlString.Empty;
+
+            TagBuilder statusBar = new TagBuilder("div");
+
+            statusBar.MergeAttributes(new Dictionary<string, string> { 
+                {"id", "status-bar"},
+                {"class", "alert alert-info"},
+                {"style", "position:fixed;bottom:0;left:0;right:0;margin:0;z-index:9999999"}
+            });
+
+            statusBar.SetInnerText(statusMessage);
+
+            return MvcHtmlString.Create(statusBar.ToString());
         }
     }
 }

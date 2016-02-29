@@ -76,15 +76,20 @@ namespace Notes.Service
                 ToList();
         }
 
-        public void RemoveNoteById(int noteId)
+        public bool RemoveNoteById(int noteId)
         {
             bool noteExists = _noteRepository.Exists(n => n.Id == noteId && n.UserId == UserId);
 
             if (noteExists)
+            {
                 _noteRepository.Delete(new Note { Id = noteId });
+                return true;
+            }
+
+            return false;
         }
 
-        public void UpdateNote(Note note)
+        public bool UpdateNote(Note note)
         {
             bool noteExists = _noteRepository.Exists(n => n.Id == note.Id && n.UserId == UserId);
 
@@ -92,7 +97,10 @@ namespace Notes.Service
             {
                 note.UserId = UserId;
                 _noteRepository.Update(note);
+                return true;
             }
+
+            return false;
         }
 
         public void AddNote(Note note)

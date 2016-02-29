@@ -191,7 +191,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Infrastructure\HtmlHelpers\PaginationHelpers.cs" />
+    <Compile Include="Infrastructure\HtmlHelpers\HtmlHelpers.cs" />
     <Compile Include="Infrastructure\Models\PagingInfo.cs" />
     <Compile Include="Infrastructure\ValidationAttributes\FutureDateAttribute.cs" />
     <Compile Include="MappingProfiles\DomainToViewModelProfile.cs" />
@@ -273,6 +273,7 @@
     <Content Include="Scripts\note-filter.js" />
     <Content Include="Scripts\note-table-sorter-config.js" />
     <Content Include="Scripts\search-date-picker-config.js" />
+    <Content Include="Scripts\status-bar.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Content\css\tablesorter\tablesorter.css" />
     <Content Include="Web.config" />

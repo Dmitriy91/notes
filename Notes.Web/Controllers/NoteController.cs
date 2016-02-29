@@ -86,6 +86,7 @@ namespace Notes.Web.Controllers
                 Note note = Mapper.Map<NoteViewModel, Note>(noteViewModel);
                 _noteService.AddNote(note);
                 await _noteService.CommitAsync();
+                TempData["StatusMessage"] = "Successfully created.";
 
                 return RedirectToAction("Index");
             }
@@ -114,8 +115,16 @@ namespace Notes.Web.Controllers
             if (ModelState.IsValid)
             {
                 Note note = Mapper.Map<NoteViewModel, Note>(noteViewModel);
-                _noteService.UpdateNote(note);
-                await _noteService.CommitAsync();
+
+                if (_noteService.UpdateNote(note))
+                {
+                    await _noteService.CommitAsync();
+                    TempData["StatusMessage"] = "Successfully updated.";
+                }
+                else 
+                {
+                    TempData["StatusMessage"] = "Unauthorized actions detected.";
+                }
 
                 return RedirectToAction("Index");
             }
@@ -144,8 +153,15 @@ namespace Notes.Web.Controllers
             if (id == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
-            _noteService.RemoveNoteById(id.Value);
-            await _noteService.CommitAsync();
+            if (_noteService.RemoveNoteById(id.Value))
+            {
+                await _noteService.CommitAsync();
+                TempData["StatusMessage"] = "Successfully deleted.";
+            }
+            else 
+            {
+                TempData["StatusMessage"] = "Unauthorized actions detected.";
+            }
 
             return RedirectToAction("Index");
         }
