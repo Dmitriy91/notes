@@ -193,6 +193,7 @@
     </Compile>
     <Compile Include="Infrastructure\HtmlHelpers\HtmlHelpers.cs" />
     <Compile Include="Infrastructure\Models\PagingInfo.cs" />
+    <Compile Include="Infrastructure\Models\StatusBarInfo.cs" />
     <Compile Include="Infrastructure\ValidationAttributes\FutureDateAttribute.cs" />
     <Compile Include="MappingProfiles\DomainToViewModelProfile.cs" />
     <Compile Include="MappingProfiles\ViewModelToDomainProfile.cs" />

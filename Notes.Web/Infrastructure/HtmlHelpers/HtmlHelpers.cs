@@ -58,20 +58,40 @@ namespace Notes.Web.Infrastructure.HtmlHelpers
             return MvcHtmlString.Create(pagingUl.ToString() + pagingSettingsUl.ToString());
         }
 
-        public static MvcHtmlString StatusBar(this HtmlHelper html, string statusMessage) 
+        public static MvcHtmlString StatusBar(this HtmlHelper html, StatusBarInfo statusBarInfo) 
         {
-            if (statusMessage == null)
+            if (statusBarInfo == null || String.IsNullOrWhiteSpace(statusBarInfo.Message))
                 return MvcHtmlString.Empty;
 
             TagBuilder statusBar = new TagBuilder("div");
 
-            statusBar.MergeAttributes(new Dictionary<string, string> { 
+            statusBar.MergeAttributes(new Dictionary<string, string> 
+            { 
                 {"id", "status-bar"},
-                {"class", "alert alert-info"},
+                {"class", statusBarInfo.CssClasses},
                 {"style", "position:fixed;bottom:0;left:0;right:0;margin:0;z-index:9999999"}
             });
 
-            statusBar.SetInnerText(statusMessage);
+            statusBar.SetInnerText(statusBarInfo.Message);
+
+            return MvcHtmlString.Create(statusBar.ToString());
+        }
+
+        public static MvcHtmlString StatusBar(this HtmlHelper html, string message, string cssClasses)
+        {
+            if (String.IsNullOrWhiteSpace(message) || String.IsNullOrWhiteSpace(cssClasses))
+                return MvcHtmlString.Empty;
+
+            TagBuilder statusBar = new TagBuilder("div");
+
+            statusBar.MergeAttributes(new Dictionary<string, string> 
+            { 
+                {"id", "status-bar"},
+                {"class", cssClasses},
+                {"style", "position:fixed;bottom:0;left:0;right:0;margin:0;z-index:9999999"}
+            });
+
+            statusBar.SetInnerText(message);
 
             return MvcHtmlString.Create(statusBar.ToString());
         }

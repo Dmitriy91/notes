@@ -1,4 +1,5 @@
 ﻿@using Notes.Web.Infrastructure.HtmlHelpers
+@using Notes.Web.Infrastructure.Models
 
 <!DOCTYPE html>
 <html>
@@ -57,7 +58,7 @@
             <p>&copy; @DateTime.Now.Year - Notes</p>
         </footer>
     </div>
-    @Html.StatusBar(TempData["StatusMessage"] as string)
+    @Html.StatusBar(TempData["StatusBarInfo"] as StatusBarInfo)
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)

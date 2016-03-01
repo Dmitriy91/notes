@@ -86,7 +86,11 @@ namespace Notes.Web.Controllers
                 Note note = Mapper.Map<NoteViewModel, Note>(noteViewModel);
                 _noteService.AddNote(note);
                 await _noteService.CommitAsync();
-                TempData["StatusMessage"] = "Successfully created.";
+                TempData["StatusBarInfo"] = new StatusBarInfo
+                {
+                    Message = "Successfully created.",
+                    Type = StatusBarInfo.StatusBarType.Success
+                };
 
                 return RedirectToAction("Index");
             }
@@ -119,11 +123,19 @@ namespace Notes.Web.Controllers
                 if (_noteService.UpdateNote(note))
                 {
                     await _noteService.CommitAsync();
-                    TempData["StatusMessage"] = "Successfully updated.";
+                    TempData["StatusBarInfo"] = new StatusBarInfo
+                    {
+                        Message = "Successfully updated.",
+                        Type = StatusBarInfo.StatusBarType.Success
+                    };
                 }
                 else 
                 {
-                    TempData["StatusMessage"] = "Unauthorized actions detected.";
+                    TempData["StatusBarInfo"] = new StatusBarInfo
+                    {
+                        Message = "Unauthorized actions detected.",
+                        Type = StatusBarInfo.StatusBarType.Warning
+                    };
                 }
 
                 return RedirectToAction("Index");
@@ -156,11 +168,19 @@ namespace Notes.Web.Controllers
             if (_noteService.RemoveNoteById(id.Value))
             {
                 await _noteService.CommitAsync();
-                TempData["StatusMessage"] = "Successfully deleted.";
+                TempData["StatusBarInfo"] = new StatusBarInfo
+                {
+                    Message = "Successfully deleted.",
+                    Type = StatusBarInfo.StatusBarType.Success
+                };
             }
             else 
             {
-                TempData["StatusMessage"] = "Unauthorized actions detected.";
+                TempData["StatusBarInfo"] = new StatusBarInfo
+                {
+                    Message = "Unauthorized actions detected.",
+                    Type = StatusBarInfo.StatusBarType.Warning
+                };
             }
 
             return RedirectToAction("Index");
