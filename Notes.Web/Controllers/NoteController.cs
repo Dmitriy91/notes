@@ -186,11 +186,5 @@ namespace Notes.Web.Controllers
             return RedirectToAction("Index");
         }
         #endregion
-
-        protected override void OnActionExecuting(ActionExecutingContext filterContext)
-        {
-            _noteService.UserId = HttpContext.User.Identity.GetUserId();
-            base.OnActionExecuting(filterContext);
-        }
     }
 }

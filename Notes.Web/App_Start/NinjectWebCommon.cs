@@ -3,6 +3,7 @@
 
 namespace Notes.Web.App_Start
 {
+    using Microsoft.AspNet.Identity;
     using Microsoft.Web.Infrastructure.DynamicModuleHelper;
     using Ninject;
     using Ninject.Web.Common;
@@ -65,9 +66,19 @@ namespace Notes.Web.App_Start
         /// <param name="kernel">The kernel.</param>
         private static void RegisterServices(IKernel kernel)
         {
-            kernel.Bind<INoteService>().To<NoteService>().WhenInjectedExactlyInto<NoteController>().InRequestScope();
-            kernel.Bind<IRepository<Note>>().To<NoteRepository>().WhenInjectedExactlyInto<NoteService>().InRequestScope();
-            kernel.Bind<DbContext>().To<ApplicationDbContext>().WhenInjectedExactlyInto<NoteRepository>().InRequestScope();
+            kernel.Bind<INoteService>()
+                .To<NoteService>()
+                .WhenInjectedExactlyInto<NoteController>()
+                .InRequestScope()
+                .WithPropertyValue("UserId", (ctx, obj) => HttpContext.Current.User.Identity.GetUserId());
+            kernel.Bind<IRepository<Note>>()
+                .To<NoteRepository>()
+                .WhenInjectedExactlyInto<NoteService>()
+                .InRequestScope();
+            kernel.Bind<DbContext>()
+                .To<ApplicationDbContext>()
+                .WhenInjectedExactlyInto<NoteRepository>()
+                .InRequestScope();
         }        
     }
 }
