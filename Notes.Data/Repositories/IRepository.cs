@@ -5,7 +5,8 @@ using System.Threading.Tasks;
 
 namespace Notes.Data.Repositories
 {
-    public interface IRepository<TEntity> where TEntity : class
+    public interface IRepository<TEntity> : IDisposable
+        where TEntity : class
     {
         void Add(params TEntity[] entities);
         void Update(params TEntity[] entities);

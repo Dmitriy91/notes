@@ -10,7 +10,7 @@ namespace Notes.Service
 {
     public class NoteService : INoteService
     {
-        private readonly IRepository<Note> _noteRepository;
+        private IRepository<Note> _noteRepository;
 
         public NoteService(IRepository<Note> noteRepository)
         {
@@ -68,7 +68,7 @@ namespace Notes.Service
             }
 
             notes = _noteRepository.GetMany(condition);
-            notesFound = notes.Select(n => n.Id).Count();// "Select" is used to reduce time consumed.
+            notesFound = notes.Count();
 
             return notes.OrderBy(note => note.Id).
                 Skip((page - 1) * notesPerPage).
@@ -117,6 +117,23 @@ namespace Notes.Service
         public void Commit()
         {
             _noteRepository.Commit();
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                if (_noteRepository != null)
+                {
+                    _noteRepository.Dispose();
+                    _noteRepository = null;
+                }
+            }
         }
     }
 }

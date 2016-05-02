@@ -12,7 +12,7 @@ namespace Notes.Data.Repositories
         where TEntity : class
     {
         #region Fields
-        protected readonly DbContext _dbContext;
+        protected DbContext _dbContext;
         protected readonly DbSet<TEntity> _dbSet;
         #endregion
 
@@ -20,7 +20,6 @@ namespace Notes.Data.Repositories
         {
             _dbContext = dbContext;
             _dbSet = dbContext.Set<TEntity>();
-            //_dbContext.Database.Log = s => System.Diagnostics.Debug.WriteLine(s);
         }
 
         public virtual void Add(params TEntity[] entities)
@@ -94,6 +93,23 @@ namespace Notes.Data.Repositories
         public virtual void Commit()
         {
             _dbContext.SaveChanges();
+        }
+
+        public void Dispose() 
+        {
+            Dispose(true);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                if (_dbContext != null)
+                {
+                    _dbContext.Dispose();
+                    _dbContext = null;
+                }
+            }
         }
     }
 }

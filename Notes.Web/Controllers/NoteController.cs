@@ -16,7 +16,7 @@ namespace Notes.Web.Controllers
     public class NoteController : Controller
     {
         #region Fields
-        private readonly INoteService _noteService;
+        private INoteService _noteService;
         #endregion
 
         #region Constructors
@@ -186,5 +186,19 @@ namespace Notes.Web.Controllers
             return RedirectToAction("Index");
         }
         #endregion
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                if (_noteService != null)
+                {
+                    _noteService.Dispose();
+                    _noteService = null;
+                }
+            }
+
+            base.Dispose(disposing);
+        }
     }
 }

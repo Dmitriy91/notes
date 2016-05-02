@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Notes.Service
 {
-    public interface INoteService
+    public interface INoteService : IDisposable
     {
         string UserId { get; set; }
         Note GetNoteById(int noteId);
