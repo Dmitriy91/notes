@@ -10,7 +10,6 @@ namespace Notes.Model
 {
     public class ApplicationUser : IdentityUser
     {
-        [ForeignKey("UserId")]
         public virtual IList<Note> Notes { get; set; }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
