@@ -1,4 +1,4 @@
-﻿using Notes.Model;
+﻿using Notes.Entities;
 using System.Data.Entity.ModelConfiguration;
 
 namespace Notes.Data.Configurations
@@ -8,10 +8,16 @@ namespace Notes.Data.Configurations
         public NoteConfig()
         {
             HasKey(n => n.Id);
-            Property(n => n.UserId).IsRequired();
-            Property(n => n.Name).IsRequired().HasMaxLength(32);
-            Property(n => n.Text).IsRequired().HasMaxLength(256);
-            Property(n => n.Date).HasColumnType("date");
+            Property(n => n.UserId)
+                .IsRequired();
+            Property(n => n.Name)
+                .IsRequired()
+                .HasMaxLength(32);
+            Property(n => n.Text)
+                .IsRequired()
+                .HasMaxLength(256);
+            Property(n => n.Date)
+                .HasColumnType("date");
         }
     }
 }

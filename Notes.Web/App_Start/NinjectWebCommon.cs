@@ -7,11 +7,11 @@ namespace Notes.Web.App_Start
     using Microsoft.Web.Infrastructure.DynamicModuleHelper;
     using Ninject;
     using Ninject.Web.Common;
-    using Notes.Data;
-    using Notes.Data.Repositories;
-    using Notes.Model;
-    using Notes.Service;
-    using Notes.Web.Controllers;
+    using Data;
+    using Data.Repositories;
+    using Entities;
+    using Services;
+    using Controllers;
     using System;
     using System.Data.Entity;
     using System.Web;
@@ -75,9 +75,12 @@ namespace Notes.Web.App_Start
                 .To<NoteRepository>()
                 .WhenInjectedExactlyInto<NoteService>()
                 .InRequestScope();
+            kernel.Bind<IUnitOfWork>()
+                .To<UnitOfWork>()
+                .WhenInjectedExactlyInto<NoteService>()
+                .InRequestScope();
             kernel.Bind<DbContext>()
                 .To<ApplicationDbContext>()
-                .WhenInjectedExactlyInto<NoteRepository>()
                 .InRequestScope();
         }        
     }

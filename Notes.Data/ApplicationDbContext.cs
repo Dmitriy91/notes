@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNet.Identity.EntityFramework;
 using Notes.Data.Configurations;
-using Notes.Model;
+using Notes.Entities;
 using System.Data.Entity;
 
 namespace Notes.Data
@@ -9,8 +9,11 @@ namespace Notes.Data
     {
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
-        { }
+        {
+        }
+
         public virtual IDbSet<Note> Notes { get; set; }
+
         public static ApplicationDbContext Create()
         {
             return new ApplicationDbContext();

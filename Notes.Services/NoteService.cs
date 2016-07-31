@@ -1,27 +1,30 @@
-﻿using Notes.Data.Repositories;
-using Notes.Model;
+﻿using Notes.Data;
+using Notes.Data.Repositories;
+using Notes.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
-namespace Notes.Service
+namespace Notes.Services
 {
     public class NoteService : INoteService
     {
         private IRepository<Note> _noteRepository;
+        private IUnitOfWork _unitOfWork;
 
-        public NoteService(IRepository<Note> noteRepository)
+        public NoteService(IRepository<Note> noteRepository, IUnitOfWork unitOfWork)
         {
             _noteRepository = noteRepository;
+            _unitOfWork = unitOfWork;
         }
 
         public string UserId { get; set; }
 
         public Note GetNoteById(int noteId)
         {
-            return _noteRepository.Get(n => n.Id == noteId && n.UserId == UserId);
+            return _noteRepository.GetSingle(n => n.Id == noteId && n.UserId == UserId);
         }
 
         public IEnumerable<Note> GetAllNotes()
@@ -111,12 +114,12 @@ namespace Notes.Service
 
         async public Task CommitAsync()
         {
-            await _noteRepository.CommitAsync();
+            await _unitOfWork.CommitAsync();
         }
 
         public void Commit()
         {
-            _noteRepository.Commit();
+            _unitOfWork.Commit();
         }
 
         public void Dispose()
@@ -128,10 +131,10 @@ namespace Notes.Service
         {
             if (disposing)
             {
-                if (_noteRepository != null)
+                if (_unitOfWork != null)
                 {
-                    _noteRepository.Dispose();
-                    _noteRepository = null;
+                    _unitOfWork.Dispose();
+                    _unitOfWork = null;
                 }
             }
         }

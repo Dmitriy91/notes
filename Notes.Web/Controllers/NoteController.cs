@@ -1,13 +1,11 @@
 ﻿using AutoMapper;
-using Microsoft.AspNet.Identity;
-using Notes.Model;
-using Notes.Service;
+using Notes.Entities;
+using Notes.Services;
 using Notes.Web.Infrastructure.Models;
 using Notes.Web.ViewModels;
 using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
-using System.Web;
 using System.Web.Mvc;
 
 namespace Notes.Web.Controllers
@@ -35,7 +33,7 @@ namespace Notes.Web.Controllers
 
             if (ModelState.IsValid)
             {
-                notes = await Task<IEnumerable<Note>>.Run(() =>
+                notes = await Task.Run(() =>
                 {
                     return _noteService.GetFilteredNotes(noteFilter.Name, noteFilter.Text, noteFilter.Date, page, notesPerPage, out notesFound);
                 });
@@ -57,12 +55,12 @@ namespace Notes.Web.Controllers
             return View(noteListViewModel);
         }
 
-        public ActionResult Details(int? id) 
+        public async Task<ActionResult> Details(int? id) 
         {
             if (id == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
-            Note note = _noteService.GetNoteById(id.Value);
+            Note note = await Task.Run(() => _noteService.GetNoteById(id.Value));
 
             if (note == null)
                 return HttpNotFound();
@@ -98,12 +96,12 @@ namespace Notes.Web.Controllers
             return View(noteViewModel);
         }
 
-        public ActionResult Edit(int? id)
+        public async Task<ActionResult> Edit(int? id)
         {
             if (id == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
-            Note note = _noteService.GetNoteById(id.Value);
+            Note note = await Task.Run(() => _noteService.GetNoteById(id.Value));
 
             if (note == null)
                 return HttpNotFound();
@@ -112,6 +110,7 @@ namespace Notes.Web.Controllers
 
             return View(noteViewModel);
         }
+
         [HttpPost]
         [ValidateAntiForgeryToken]   
         public async Task<ActionResult> Edit(NoteViewModel noteViewModel)
@@ -144,12 +143,12 @@ namespace Notes.Web.Controllers
             return View(noteViewModel);
         }
 
-        public ActionResult Delete(int? id)
+        public async Task<ActionResult> Delete(int? id)
         {
             if (id == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
-            Note note = _noteService.GetNoteById(id.Value);
+            Note note = await Task.Run(() => _noteService.GetNoteById(id.Value));
 
             if(note == null)
                 return HttpNotFound();
@@ -158,6 +157,7 @@ namespace Notes.Web.Controllers
 
             return View(noteViweModel);
         }
+
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int? id)

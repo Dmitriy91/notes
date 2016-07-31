@@ -1,4 +1,4 @@
-﻿using Notes.Model;
+﻿using Notes.Entities;
 using System.Data.Entity.ModelConfiguration;
 
 namespace Notes.Data.Configurations

@@ -1,10 +1,5 @@
-﻿using Notes.Model;
-using System;
-using System.Collections.Generic;
+﻿using Notes.Entities;
 using System.Data.Entity;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Notes.Data.Repositories
 {
@@ -12,6 +7,7 @@ namespace Notes.Data.Repositories
     {
         public NoteRepository(DbContext _dbContext)
             : base(_dbContext)
-        { }
+        {
+        }
     }
 }

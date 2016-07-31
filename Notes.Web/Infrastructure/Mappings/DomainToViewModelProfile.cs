@@ -1,18 +1,20 @@
 ﻿using AutoMapper;
-using Notes.Model;
+using Notes.Entities;
 using Notes.Web.ViewModels;
 
-namespace Notes.Web.MappingProfiles
+namespace Notes.Web.Infrastructure.Mappings
 {
     public class DomainToViewModelProfile : Profile
     {
         public DomainToViewModelProfile()
             : base("DomainToViewModel")
-        { }
+        {
+        }
 
         protected override void Configure()
         {
-            CreateMap<Note, NoteViewModel>().ForSourceMember(s => s.UserId, opts => opts.Ignore());
+            CreateMap<Note, NoteViewModel>()
+                .ForSourceMember(s => s.UserId, opts => opts.Ignore());
         }
     }
 }

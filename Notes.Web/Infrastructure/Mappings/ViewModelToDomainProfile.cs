@@ -1,18 +1,19 @@
 ﻿using AutoMapper;
-using Notes.Model;
+using Notes.Entities;
 using Notes.Web.ViewModels;
 
-namespace Notes.Web.MappingProfiles
+namespace Notes.Web.Infrastructure.Mappings
 {
     public class ViewModelToDomainProfile : Profile
     {
         public ViewModelToDomainProfile()
             : base("ViewModelToDomain")
-        { }
+        {
+        }
 
         protected override void Configure()
         {
-            Mapper.CreateMap<NoteViewModel, Note>();
+            CreateMap<NoteViewModel, Note>();
         }
     }
 }

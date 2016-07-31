@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
 using System.Reflection;
-using System.Web;
 
 namespace Notes.Web.Infrastructure.Models
 {
@@ -22,7 +19,9 @@ namespace Notes.Web.Infrastructure.Models
         }
 
         public string Message { get; set; }
+
         public StatusBarType Type { get; set; }
+
         public string CssClasses 
         {
             get

@@ -1,22 +1,19 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Notes.Data.Repositories
 {
     public abstract class RepositoryBase<TEntity> : IRepository<TEntity>
-        where TEntity : class
+        where TEntity : class, new()
     {
         #region Fields
         protected DbContext _dbContext;
         protected readonly DbSet<TEntity> _dbSet;
         #endregion
 
-        protected RepositoryBase(DbContext dbContext)
+        public RepositoryBase(DbContext dbContext)
         {
             _dbContext = dbContext;
             _dbSet = dbContext.Set<TEntity>();
@@ -46,9 +43,12 @@ namespace Notes.Data.Repositories
             }
         }
 
-        public virtual void Delete(Expression<Func<TEntity, bool>> where)
+        public virtual void Delete(Expression<Func<TEntity, bool>> condition)
         {
-            _dbSet.RemoveRange(_dbSet.Where<TEntity>(where));
+            if (condition == null)
+                return;
+
+            _dbSet.RemoveRange(_dbSet.Where(condition));
         }
 
         public virtual TEntity GetById(params object[] keyValues)
@@ -56,60 +56,33 @@ namespace Notes.Data.Repositories
             return _dbSet.Find(keyValues);
         }
 
+        public virtual TEntity GetSingle(Expression<Func<TEntity, bool>> condition)
+        {
+            if (condition == null)
+                return null;
+
+            return _dbSet.FirstOrDefault(condition);
+        }
+
         public virtual IQueryable<TEntity> GetAll()
         {
-            return _dbSet.AsQueryable<TEntity>();
+            return _dbSet.AsQueryable();
         }
 
-        public virtual IQueryable<TEntity> GetMany(Expression<Func<TEntity, bool>> where)
+        public virtual IQueryable<TEntity> GetMany(Expression<Func<TEntity, bool>> condition)
         {
-            if (where == null)
+            if (condition == null)
                 return null;
 
-            return _dbSet.Where(where);
+            return _dbSet.Where(condition);
         }
 
-        public virtual TEntity Get(Expression<Func<TEntity, bool>> where)
+        public virtual bool Exists(Expression<Func<TEntity, bool>> condition)
         {
-            if (where == null)
-                return null;
-
-            return _dbSet.FirstOrDefault<TEntity>(where);
-        }
-
-        public virtual bool Exists(Expression<Func<TEntity, bool>> where)
-        {
-            if (where == null)
+            if (condition == null)
                 return false;
 
-            return _dbSet.Any<TEntity>(where);
-        }
-
-        public virtual async Task CommitAsync()
-        {
-            await _dbContext.SaveChangesAsync();
-        }
-
-        public virtual void Commit()
-        {
-            _dbContext.SaveChanges();
-        }
-
-        public void Dispose() 
-        {
-            Dispose(true);
-        }
-
-        protected virtual void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                if (_dbContext != null)
-                {
-                    _dbContext.Dispose();
-                    _dbContext = null;
-                }
-            }
+            return _dbSet.Any(condition);
         }
     }
 }

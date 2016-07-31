@@ -85,7 +85,7 @@ namespace Notes.Web.Infrastructure.HtmlHelpers
             TagBuilder statusBar = new TagBuilder("div");
 
             statusBar.MergeAttributes(new Dictionary<string, string> 
-            { 
+            {
                 {"id", "status-bar"},
                 {"class", cssClasses},
                 {"style", "position:fixed;bottom:0;left:0;right:0;margin:0;z-index:9999999"}

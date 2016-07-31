@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
-using Notes.Web.MappingProfiles;
+using Notes.Web.Infrastructure.Mappings;
 
-namespace Notes
+namespace Notes.Web
 {
     public static class AutoMapperConfig
     {
@@ -12,8 +12,6 @@ namespace Notes
                 cfg.AddProfile<DomainToViewModelProfile>();
                 cfg.AddProfile<ViewModelToDomainProfile>();
             });
-
-            Mapper.AssertConfigurationIsValid<ViewModelToDomainProfile>();
         }
     }
 }

@@ -1,12 +1,11 @@
 ﻿using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
 
-namespace Notes.Model
+namespace Notes.Entities
 {
     public class ApplicationUser : IdentityUser
     {

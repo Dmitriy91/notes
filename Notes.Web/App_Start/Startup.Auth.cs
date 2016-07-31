@@ -1,9 +1,8 @@
-﻿using Notes.Web.ViewModels;
-using Notes.Service;
+﻿using Notes.Services;
 using Owin;
 using System;
 using Notes.Data;
-using Notes.Model;
+using Notes.Entities;
 
 namespace Notes.Web
 {

@@ -4,13 +4,13 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security;
 using Notes.Data;
-using Notes.Model;
+using Notes.Entities;
 using System;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
 
-namespace Notes.Service
+namespace Notes.Services
 {
     public class EmailService : IIdentityMessageService
     {

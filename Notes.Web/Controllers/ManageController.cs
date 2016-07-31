@@ -7,7 +7,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Notes.Web.ViewModels;
-using Notes.Service;
+using Notes.Services;
 
 namespace Notes.Web.Controllers
 {
